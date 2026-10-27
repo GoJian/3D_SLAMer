@@ -6,11 +6,15 @@ repositories:
   px4_msgs:
     type: git
     url: https://github.com/PX4/px4_msgs.git
-    version: main          # TODO M0: match pinned PX4 release branch
+    version: 86d8239e962f6939e05c3737784f60c02fa884db   # release/1.17 HEAD 2026-10-27, matches PX4 v1.17.0
+  micro_xrce_dds_agent:
+    type: git
+    url: https://github.com/eProsima/Micro-XRCE-DDS-Agent.git
+    version: v2.4.3        # 73622810d984; PX4 v1.17 docs: Jazzy -> v2.4.3
   okvis2_x:
     type: git
     url: https://github.com/ethz-mrl/OKVIS2-X.git
-    version: main          # TODO M0: pin commit
+    version: 38043e4afe56d9b32a98434cc74e723737dd2bce   # main HEAD 2026-10-27; build unverified
 # Enable when needed (M4 / benchmarking):
 #  isaac_ros_nvblox:
 #    type: git

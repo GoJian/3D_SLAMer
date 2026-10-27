@@ -12,15 +12,15 @@ flight_controller:
   serial: TBD
 companion:
   module: Jetson Orin NX 16GB
-  carrier: TBD
-  power_mode: TBD
-  storage: TBD            # NVMe; size from measured recording throughput
+  carrier: Seeed reComputer Robotics J401 (GMSL)   # native GMSL2 ports; see decision 0001
+  power_mode: "40W (nvpmodel default on this image; sustained mode TBD after thermal test)"
+  storage: "Agrade PE50 128GB NVMe (bench unit; size flight storage from measured throughput)"
 cameras:
   - camera_id: cam0       # stereo unit 0 (left/right handled by camera wrapper)
     model: ZED X
     serial: TBD
     lens: TBD
-    capture_card: ZED Link (variant TBD)
+    capture_card: "carrier GMSL2 (ZED Link likely unnecessary; driver support unconfirmed)"
     mount_position: forward
 gnss:
   model: kit GNSS

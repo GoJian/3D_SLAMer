@@ -23,7 +23,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            # 'node_name = x650_recording.module:main',
+            'x650_record = x650_recording.record:main',
         ],
     },
 )

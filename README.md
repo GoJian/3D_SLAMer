@@ -7,16 +7,26 @@ Gaussian splats are an optional appearance product.
 The blueprint is [`docs/3D_SLAMer_TechnicalPlan.md`](docs/3D_SLAMer_TechnicalPlan.md).
 Progress is tracked in [`docs/milestones.md`](docs/milestones.md).
 
-**Status:** scaffold only. Nothing has been built or tested yet. Starting point: M0 (dependency lock).
+**Status:** M0 in progress. Onboard platform pinned (JetPack 7.2 / Ubuntu 24.04 / ROS 2 Jazzy,
+[decision 0001](docs/decisions/0001-onboard-platform-jetpack7-jazzy.md)). Hardware-independent
+pieces are implemented and tested on the Jetson with **synthetic** data: frame/time conversion,
+estimator adapter, calibration loader + static TF, session recorder + manifest, timestamp audit,
+trajectory metrics and replay evaluation. The PX4 external-vision bridge flies PX4 v1.17.0 SITL
+(Gazebo Harmonic) on vision only, with fault injection
+([decision 0004](docs/decisions/0004-px4-transport-uxrce-dds.md),
+[report](reports/2026-10-27_m3_sitl.md); fake VIO, not an estimator result). A USB webcam
+capture node exists but has not run on a device yet. No real camera, estimator or flight
+controller has been connected.
 
 ## Layout
 
 ```text
 .
 ├── src/                         ROS 2 packages (repo root is the colcon workspace)
-│   ├── x650_msgs                custom messages (keyframe events, pose updates, mapping health)
+│   ├── x650_common              header-only rigid-body + time-mapping utilities (no ROS runtime)
+│   ├── x650_msgs                custom messages (frame metadata, keyframe events, pose updates, mapping health)
 │   ├── x650_description         URDF + static TF from calibration
-│   ├── x650_camera              ZED X acquisition wrapper (M1)
+│   ├── x650_camera              USB webcam (V4L2) capture now; ZED X wrapper later (M1)
 │   ├── x650_recording           rosbag2/MCAP sessions + manifests (M1)
 │   ├── x650_estimator_adapter   OKVIS2-X / cuVSLAM normalization, map->odom->base_link (M2)
 │   ├── x650_px4_bridge          frame/time conversion to PX4 external vision (M3)
@@ -24,6 +34,7 @@ Progress is tracked in [`docs/milestones.md`](docs/milestones.md).
 │   ├── x650_geometry            local TSDF/occupancy/ESDF (M4)
 │   ├── x650_keyframes           persisted keyframe bundles (M5/M9)
 │   ├── x650_evaluation          metrics, timing audits, fault injection
+│   ├── x650_sim                 PX4 SITL harness: fake VIO, offboard mission, flight test (M3)
 │   ├── x650_bringup             launch + parameter composition
 │   └── third_party/             vcs-imported deps (git-ignored)
 ├── offline/                     post-flight workstation tools, separate env (COLCON_IGNORE)
@@ -44,18 +55,47 @@ Progress is tracked in [`docs/milestones.md`](docs/milestones.md).
 
 ## Getting started on the edge machine
 
-Assumes Ubuntu 22.04 / JetPack 6 with ROS 2 Humble. Confirm and pin during M0.
+JetPack 7.2 / Ubuntu 24.04 with ROS 2 Jazzy (see `config/dependencies.jetson.lock.yaml`).
 
 ```bash
 git clone git@github.com:GoJian/3D_SLAMer.git
 cd 3D_SLAMer
-source /opt/ros/humble/setup.bash
-sudo apt install python3-vcstool python3-colcon-common-extensions python3-rosdep
-scripts/bootstrap.sh            # vcs import + rosdep + colcon build
-source install/setup.bash
+sudo apt install ros-jazzy-ros-base ros-dev-tools ros-jazzy-rosbag2-storage-mcap \
+    python3-jsonschema python3-yaml libeigen3-dev
+source /opt/ros/jazzy/setup.bash
+colcon build --symlink-install && source install/setup.bash
+colcon test && colcon test-result --verbose
+scripts/validate_config.py
 
+scripts/bootstrap.sh            # later: vcs import third-party (OKVIS2-X, ...) + rosdep + build
 scripts/capture_env.sh          # copy output into config/dependencies.jetson.lock.yaml
-pip install jsonschema pyyaml && scripts/validate_config.py
+```
+
+Tools (synthetic data until hardware is connected):
+
+```bash
+ros2 run x650_evaluation x650_synthetic_session data/synthetic/loop --motion loop --duration 20 --loop-closure 12:0.3
+ros2 run x650_evaluation x650_timestamp_audit data/synthetic/loop/bag --stereo /rig/cam0/image_raw,/rig/cam1/image_raw --imu /rig/imu
+ros2 run x650_evaluation x650_replay data/synthetic/loop/bag --out data/replays/loop \
+    --reference-topic /groundtruth/odometry --sequence-type handheld_closed_loop
+ros2 run x650_recording x650_record --sequence-type stationary --calibration calibration/rigs/<rig>/<id>   # real sessions
+ros2 run x650_description calibration_hash calibration/rigs/<rig>/<new_id> --write   # new calibration
+```
+
+PX4 SITL (M3; PX4 lives outside the workspace in ~/px4):
+
+```bash
+scripts/setup_px4_sitl.sh                      # PX4 v1.17.0 + Gazebo Harmonic, builds px4_sitl
+vcs import src/third_party < dependencies.repos && colcon build --symlink-install   # px4_msgs, XRCE agent
+ros2 launch x650_sim sitl_vio.launch.py        # headless sim; fly with: ros2 run x650_sim x650_sim_mission
+ros2 run x650_sim x650_sim_flight_test --out data/sim/m3_faults    # automated test + report.json
+```
+
+USB webcam (bench camera until the ZED X works on this carrier):
+
+```bash
+v4l2-ctl --list-devices && v4l2-ctl -d /dev/video0 --list-formats-ext   # pick a YUYV mode
+ros2 launch x650_camera usb_webcam.launch.py   # /rig/cam0/image_raw + /rig/cam0/frame_metadata
 ```
 
 The ZED SDK and ZED Link capture driver are installed manually (not via rosdep); see

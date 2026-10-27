@@ -1,0 +1,13 @@
+# px4_bridge_node parameters (decision 0002 frames, decision 0004 transport).
+px4_bridge:
+  ros__parameters:
+    world_conversion: zup_to_frd   # VIO heading is arbitrary -> POSE_FRAME_FRD (decision 0002)
+    max_age_s: 0.1                 # drop EV samples older than this (acquisition -> send)
+    max_future_s: 0.005
+    timesync_timeout_s: 2.0        # no /fmu/out/timesync_status for this long -> stop sending
+    require_timesync: true         # false only in SITL on sim time (UXRCE_DDS_SYNCT=0)
+    min_quality: 0.0
+    fmu_namespace: /fmu
+    # base_link -> PX4 body reference (FC IMU). Identity in simulation.
+    T_base_px4body.translation: [0.0, 0.0, 0.0]
+    T_base_px4body.rotation_xyzw: [0.0, 0.0, 0.0, 1.0]

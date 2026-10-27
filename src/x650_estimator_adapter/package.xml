@@ -8,12 +8,15 @@
   <license>TBD</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>eigen</depend>
+  <depend>x650_common</depend>
   <depend>rclcpp</depend>
+  <depend>rclcpp_components</depend>
   <depend>nav_msgs</depend>
   <depend>geometry_msgs</depend>
+  <depend>std_msgs</depend>
   <depend>tf2_ros</depend>
   <depend>diagnostic_msgs</depend>
-  <depend>x650_msgs</depend>
 
   <test_depend>ament_cmake_gtest</test_depend>
 

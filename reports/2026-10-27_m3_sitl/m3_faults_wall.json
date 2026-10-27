@@ -1,0 +1,240 @@
+{
+  "simulation": true,
+  "note": "PX4 SITL + fake VIO from Gazebo ground truth; integration test, not estimator performance",
+  "samples": {
+    "groundtruth": 2325,
+    "vio": 1107,
+    "px4": 3869
+  },
+  "faults": [
+    {
+      "t_s": 20.782783235,
+      "command": "jump 0.5"
+    },
+    {
+      "t_s": 24.67887934,
+      "command": "dropout 1.0"
+    },
+    {
+      "t_s": 28.577427617,
+      "command": "reset"
+    },
+    {
+      "t_s": 32.476653545000005,
+      "command": "latency 0.15 1.0"
+    }
+  ],
+  "axes": {
+    "matched": 3762,
+    "position_rms_m": 0.04284504376092861,
+    "position_max_m": 0.23282833924597457,
+    "rotation_deg": {
+      "p50": 0.27304409664171453,
+      "p95": 1.4559148261622783,
+      "p99": 2.697358147816035,
+      "n": 3762,
+      "mean": 0.6040326931079724,
+      "max": 34.38246682989003,
+      "min": 0.0027926057648970117
+    }
+  },
+  "timing": {
+    "px4_vs_groundtruth": {
+      "lag_s": -0.01999999999999988,
+      "rmse_at_lag_m": 0.04200234960254852,
+      "at_search_edge": false
+    },
+    "vio_vs_groundtruth": {
+      "lag_s": 0.005000000000000143,
+      "rmse_at_lag_m": 0.013358591410658396,
+      "at_search_edge": false
+    },
+    "px4_imu_vs_groundtruth": {
+      "lag_s": 0.01800000000000007,
+      "samples": 3897
+    },
+    "vio_record_minus_stamp_s": {
+      "p50": 0.028635427,
+      "p95": 0.030136280600000002,
+      "p99": 0.15447293190000003,
+      "n": 1107,
+      "mean": 0.03175338158265583,
+      "max": 0.156006005,
+      "min": 0.027347865000000002
+    }
+  },
+  "ate": {
+    "px4": {
+      "alignment": "se3",
+      "scale": 1.0,
+      "matched": 3869,
+      "rmse_m": 0.0449816152798038,
+      "mean_m": 0.03251400678612379,
+      "median_m": 0.018030547638998445,
+      "max_m": 0.22798741797927027
+    },
+    "vio": {
+      "alignment": "se3",
+      "scale": 1.0,
+      "matched": 1107,
+      "rmse_m": 0.013359863397432321,
+      "mean_m": 0.012484738513179598,
+      "median_m": 0.012407276491639595,
+      "max_m": 0.02699884336636121
+    }
+  },
+  "continuity": {
+    "vio": {
+      "samples": 1106,
+      "max_step_residual_m": 0.18654245951170206,
+      "p99_step_residual_m": 0.014862279167584876,
+      "near_events": [
+        {
+          "command": "jump 0.5",
+          "max_step_residual_m": 0.03485438117683898
+        },
+        {
+          "command": "dropout 1.0",
+          "max_step_residual_m": 0.18654245951170206
+        },
+        {
+          "command": "reset",
+          "max_step_residual_m": 0.013569732880566225
+        },
+        {
+          "command": "latency 0.15 1.0",
+          "max_step_residual_m": 0.011756141864961687
+        }
+      ]
+    },
+    "px4": {
+      "samples": 3868,
+      "max_step_residual_m": 0.19129633393321838,
+      "p99_step_residual_m": 0.0022251641476752895,
+      "near_events": [
+        {
+          "command": "jump 0.5",
+          "max_step_residual_m": 0.002105015050154446
+        },
+        {
+          "command": "dropout 1.0",
+          "max_step_residual_m": 0.19129633393321838
+        },
+        {
+          "command": "reset",
+          "max_step_residual_m": 0.0023057315377293763
+        },
+        {
+          "command": "latency 0.15 1.0",
+          "max_step_residual_m": 0.16343378257647168
+        }
+      ]
+    }
+  },
+  "ev_input": {
+    "messages": 916,
+    "send_age_s": {
+      "p50": 0.0290975,
+      "p95": 0.030348749999999997,
+      "p99": 0.031334100000000004,
+      "n": 916,
+      "mean": 0.029370272925764187,
+      "max": 0.087022,
+      "min": 0.027631
+    },
+    "older_than_max_age": 0,
+    "max_gap_s": 1.0803799629211426,
+    "rate_hz": 23.522069110991755
+  },
+  "fusion": {
+    "in_air_samples": 38,
+    "in_air_ev_pos_fraction": 0.8947368421052632,
+    "in_air_outside_outages_samples": 28,
+    "in_air_outside_outages_ev_pos_fraction": 1.0,
+    "transitions": [
+      {
+        "ev_pos": false,
+        "ev_yaw": false,
+        "ev_hgt": false,
+        "ev_vel": false,
+        "t_s": 7.528236672
+      },
+      {
+        "ev_pos": true,
+        "ev_yaw": true,
+        "ev_hgt": true,
+        "ev_vel": true,
+        "t_s": 8.037277628
+      },
+      {
+        "ev_pos": false,
+        "ev_yaw": false,
+        "ev_hgt": false,
+        "ev_vel": false,
+        "t_s": 25.21079285
+      },
+      {
+        "ev_pos": true,
+        "ev_yaw": true,
+        "ev_hgt": true,
+        "ev_vel": true,
+        "t_s": 25.890813211
+      },
+      {
+        "ev_pos": false,
+        "ev_yaw": false,
+        "ev_hgt": false,
+        "ev_vel": false,
+        "t_s": 33.010377132
+      },
+      {
+        "ev_pos": true,
+        "ev_yaw": true,
+        "ev_hgt": true,
+        "ev_vel": true,
+        "t_s": 33.771035701
+      }
+    ]
+  },
+  "adapter_health": {
+    "last_measurement_age_s": "0.041333",
+    "tracking_state": "tracking",
+    "pose_revision": "2",
+    "reset_count": "1",
+    "quality": "1.000000",
+    "accepted": "1136",
+    "rejected": "0",
+    "jumps_absorbed": "2",
+    "message": "tracking"
+  },
+  "bridge_status": {
+    "timesync": "true",
+    "px4_estimated_offset_us": "-1793118037225700",
+    "last_accepted_age_s": "0.043754",
+    "reset_counter": "0",
+    "count_no_timesync": "188",
+    "count_ok": "906",
+    "count_stale": "29",
+    "message": "ok"
+  },
+  "gates": {
+    "axes": true,
+    "timing": true,
+    "accuracy": true,
+    "local_continuity": true,
+    "no_stale_sent": true,
+    "stale_rejected": true,
+    "ev_fused_in_flight": true,
+    "resets_absorbed": true,
+    "mission_completed": true
+  },
+  "passed": true,
+  "time_source": "wall",
+  "mission": {
+    "exit_code": 0,
+    "faults": "1:jump 0.5;2:dropout 1.0;3:reset;4:latency 0.15 1.0",
+    "side_m": 3.0,
+    "altitude_m": 2.5,
+    "log": "/home/gojian/Project/3D_SLAMer/data/sim/m3_faults_wall/mission.log"
+  }
+}

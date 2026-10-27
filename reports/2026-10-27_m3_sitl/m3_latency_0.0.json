@@ -1,0 +1,166 @@
+{
+  "simulation": true,
+  "note": "PX4 SITL + fake VIO from Gazebo ground truth; integration test, not estimator performance",
+  "samples": {
+    "groundtruth": 2132,
+    "vio": 1038,
+    "px4": 4112
+  },
+  "faults": [],
+  "axes": {
+    "matched": 4111,
+    "position_rms_m": 0.03606934135237095,
+    "position_max_m": 0.11826874821179466,
+    "rotation_deg": {
+      "p50": 0.1573531981931577,
+      "p95": 1.303033438072041,
+      "p99": 2.5698321452603246,
+      "n": 4111,
+      "mean": 0.5705165568603758,
+      "max": 34.37694382597734,
+      "min": 0.0035095977233063243
+    }
+  },
+  "timing": {
+    "px4_vs_groundtruth": {
+      "lag_s": -0.00999999999999987,
+      "rmse_at_lag_m": 0.03294577381063708,
+      "at_search_edge": false
+    },
+    "vio_vs_groundtruth": {
+      "lag_s": -0.004999999999999866,
+      "rmse_at_lag_m": 0.008898970393889436,
+      "at_search_edge": false
+    },
+    "px4_imu_vs_groundtruth": {
+      "lag_s": 0.01600000000000007,
+      "samples": 4112
+    },
+    "vio_record_minus_stamp_s": {
+      "p50": 0.004,
+      "p95": 0.008,
+      "p99": 0.008,
+      "n": 1038,
+      "mean": 0.004867052023121389,
+      "max": 0.012,
+      "min": 0.004
+    }
+  },
+  "ate": {
+    "px4": {
+      "alignment": "se3",
+      "scale": 1.0,
+      "matched": 4112,
+      "rmse_m": 0.03392157780289545,
+      "mean_m": 0.025024003496817823,
+      "median_m": 0.014059308924113084,
+      "max_m": 0.10657423077143773
+    },
+    "vio": {
+      "alignment": "se3",
+      "scale": 1.0,
+      "matched": 1038,
+      "rmse_m": 0.008898970393889436,
+      "mean_m": 0.00818553995903218,
+      "median_m": 0.007848784085178386,
+      "max_m": 0.020626575572460976
+    }
+  },
+  "continuity": {
+    "vio": {
+      "samples": 1037,
+      "max_step_residual_m": 0.01730037240529493,
+      "p99_step_residual_m": 0.014779180703078309,
+      "near_events": []
+    },
+    "px4": {
+      "samples": 4111,
+      "max_step_residual_m": 0.013342594200782891,
+      "p99_step_residual_m": 0.0021814889403120926,
+      "near_events": []
+    }
+  },
+  "ev_input": {
+    "messages": 1037,
+    "send_age_s": {
+      "p50": 0.004,
+      "p95": 0.008,
+      "p99": 0.008,
+      "n": 1037,
+      "mean": 0.004864030858244939,
+      "max": 0.012,
+      "min": 0.0
+    },
+    "older_than_max_age": 0,
+    "max_gap_s": 0.04000000000000625,
+    "rate_hz": 25.0
+  },
+  "fusion": {
+    "in_air_samples": 32,
+    "in_air_ev_pos_fraction": 1.0,
+    "in_air_outside_outages_samples": 32,
+    "in_air_outside_outages_ev_pos_fraction": 1.0,
+    "transitions": [
+      {
+        "ev_pos": false,
+        "ev_yaw": false,
+        "ev_hgt": false,
+        "ev_vel": false,
+        "t_s": 1.528
+      },
+      {
+        "ev_pos": false,
+        "ev_yaw": false,
+        "ev_hgt": true,
+        "ev_vel": false,
+        "t_s": 1.7280000000000002
+      },
+      {
+        "ev_pos": true,
+        "ev_yaw": true,
+        "ev_hgt": true,
+        "ev_vel": true,
+        "t_s": 1.9280000000000002
+      }
+    ]
+  },
+  "adapter_health": {
+    "last_measurement_age_s": "0.016000",
+    "tracking_state": "tracking",
+    "pose_revision": "0",
+    "reset_count": "0",
+    "quality": "1.000000",
+    "accepted": "1064",
+    "rejected": "0",
+    "jumps_absorbed": "0",
+    "message": "tracking"
+  },
+  "bridge_status": {
+    "timesync": "true",
+    "px4_estimated_offset_us": "0",
+    "last_accepted_age_s": "0.040000",
+    "reset_counter": "0",
+    "count_ok": "1063",
+    "message": "ok"
+  },
+  "gates": {
+    "axes": true,
+    "timing": true,
+    "accuracy": true,
+    "local_continuity": null,
+    "no_stale_sent": true,
+    "stale_rejected": null,
+    "ev_fused_in_flight": true,
+    "resets_absorbed": null,
+    "mission_completed": true
+  },
+  "passed": true,
+  "time_source": "sim",
+  "mission": {
+    "exit_code": 0,
+    "faults": "",
+    "side_m": 3.0,
+    "altitude_m": 2.5,
+    "log": "/home/gojian/Project/3D_SLAMer/data/sim/m3_latency_0.0/mission.log"
+  }
+}

@@ -22,7 +22,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            # 'node_name = x650_evaluation.module:main',
+            'x650_timestamp_audit = x650_evaluation.timestamp_audit:main',
+            'x650_synthetic_session = x650_evaluation.synthetic:main',
+            'x650_evaluate = x650_evaluation.evaluate:main',
+            'x650_replay = x650_evaluation.replay:main',
         ],
     },
 )

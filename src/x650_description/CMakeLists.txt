@@ -1,14 +1,17 @@
 cmake_minimum_required(VERSION 3.16)
 project(x650_description)
 
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
-endif()
-
 find_package(ament_cmake REQUIRED)
-# TODO: find_package() for dependencies and add targets when implementation starts.
+find_package(ament_cmake_python REQUIRED)
 
-install(DIRECTORY urdf meshes config launch
-  DESTINATION share/${PROJECT_NAME})
+ament_python_install_package(${PROJECT_NAME})
+install(PROGRAMS scripts/calibration_tf_publisher scripts/calibration_hash DESTINATION lib/${PROJECT_NAME})
+install(DIRECTORY urdf meshes config launch DESTINATION share/${PROJECT_NAME})
+
+if(BUILD_TESTING)
+  find_package(ament_cmake_pytest REQUIRED)
+  ament_add_pytest_test(test_calibration test/test_calibration.py
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+endif()
 
 ament_package()

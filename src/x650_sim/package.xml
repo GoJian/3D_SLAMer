@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>x650_sim</name>
+  <version>0.0.0</version>
+  <description>PX4 SITL (Gazebo Harmonic) harness: fake VIO with fault injection, offboard test mission, flight test and evaluation (M3).</description>
+  <maintainer email="164676+GoJian@users.noreply.github.com">Jian Gong</maintainer>
+  <license>TBD</license>
+
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>diagnostic_msgs</exec_depend>
+  <exec_depend>px4_msgs</exec_depend>
+  <exec_depend>ros_gz_bridge</exec_depend>
+  <exec_depend>ros2bag</exec_depend>
+  <exec_depend>rosbag2_storage_mcap</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <exec_depend>x650_estimator_adapter</exec_depend>
+  <exec_depend>x650_px4_bridge</exec_depend>
+  <exec_depend>x650_evaluation</exec_depend>
+  <!-- Not rosdep keys: PX4-Autopilot v1.17.0 (scripts/setup_px4_sitl.sh), gz-harmonic,
+       MicroXRCEAgent (src/third_party via dependencies.repos). -->
+
+  <test_depend>python3-pytest</test_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

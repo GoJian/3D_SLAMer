@@ -1,0 +1,18 @@
+# Estimator adapter parameters. T_base_imu MUST come from the versioned calibration
+# (calibration/rigs/...); the identity below is a placeholder for synthetic tests only.
+estimator_adapter:
+  ros__parameters:
+    map_frame: map
+    odom_frame: odom
+    base_frame: base_link
+    publish_tf: true
+    stale_after_s: 0.2
+    T_base_imu:
+      translation: [0.0, 0.0, 0.0]
+      rotation_xyzw: [0.0, 0.0, 0.0, 1.0]
+    jump:
+      max_translation_residual_m: 0.25
+      max_rotation_residual_rad: 0.20
+      translation_residual_per_s: 0.25   # tolerance growth per second of gap
+      rotation_residual_per_s: 0.20
+      max_gap_s: 2.0                     # longer gaps are dead-reckoned (never trusted)

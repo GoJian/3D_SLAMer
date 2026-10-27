@@ -1,0 +1,12 @@
+# USB webcam bench camera (stand-in until the ZED X driver exists on the J401; decision 0001).
+# Find devices and supported modes with:  v4l2-ctl --list-devices ; v4l2-ctl -d /dev/video0 --list-formats-ext
+/**:
+  ros__parameters:
+    video_device: /dev/video0
+    width: 640
+    height: 480
+    fps: 30
+    pixel_format: YUYV          # YUYV or GREY; MJPEG is not decoded by this node
+    output_encoding: mono8      # mono8 (VIO) or yuv422_yuy2 (raw passthrough)
+    exposure_us: -1.0           # >0 fixes exposure (recommended for VIO); <0 leaves auto
+    num_buffers: 4

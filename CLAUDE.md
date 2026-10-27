@@ -14,12 +14,14 @@ Guidance for Claude Code working in this repository.
   `src/third_party/` via `vcs import` from `dependencies.repos` (git-ignored).
 - `offline/` holds post-flight workstation tools. It has `COLCON_IGNORE` and must not share an
   environment with flight software.
-- ROS distro assumed Humble (JetPack 6 / Ubuntu 22.04) until pinned in M0.
+- Onboard platform: JetPack 7.2 / Ubuntu 24.04 / ROS 2 Jazzy (decision 0001).
+- PX4 SITL lives outside the workspace (`scripts/setup_px4_sitl.sh`, default `~/px4`); PX4 ships a
+  `package.xml`, so never put it under `src/`. Flight test: `ros2 run x650_sim x650_sim_flight_test`.
 
 ## Commands
 
 ```bash
-source /opt/ros/humble/setup.bash
+source /opt/ros/jazzy/setup.bash
 scripts/bootstrap.sh                        # import deps, rosdep, build
 colcon build --symlink-install --packages-select <pkg>
 colcon test --packages-select <pkg> && colcon test-result --verbose

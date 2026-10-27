@@ -1,0 +1,166 @@
+{
+  "simulation": true,
+  "note": "PX4 SITL + fake VIO from Gazebo ground truth; integration test, not estimator performance",
+  "samples": {
+    "groundtruth": 2147,
+    "vio": 1042,
+    "px4": 4051
+  },
+  "faults": [],
+  "axes": {
+    "matched": 4049,
+    "position_rms_m": 0.036689646485405736,
+    "position_max_m": 0.12016755652848025,
+    "rotation_deg": {
+      "p50": 0.17643279636909742,
+      "p95": 1.458262808488042,
+      "p99": 2.675169889216222,
+      "n": 4049,
+      "mean": 0.630139931820472,
+      "max": 34.38973133640579,
+      "min": 0.003116345385020391
+    }
+  },
+  "timing": {
+    "px4_vs_groundtruth": {
+      "lag_s": -0.00999999999999987,
+      "rmse_at_lag_m": 0.03351487547202272,
+      "at_search_edge": false
+    },
+    "vio_vs_groundtruth": {
+      "lag_s": -0.004999999999999866,
+      "rmse_at_lag_m": 0.008871254976812456,
+      "at_search_edge": false
+    },
+    "px4_imu_vs_groundtruth": {
+      "lag_s": 0.01600000000000007,
+      "samples": 4140
+    },
+    "vio_record_minus_stamp_s": {
+      "p50": 0.028,
+      "p95": 0.032,
+      "p99": 0.032,
+      "n": 1042,
+      "mean": 0.029205374280230335,
+      "max": 0.07200000000000001,
+      "min": -0.012
+    }
+  },
+  "ate": {
+    "px4": {
+      "alignment": "se3",
+      "scale": 1.0,
+      "matched": 4051,
+      "rmse_m": 0.034930768998500956,
+      "mean_m": 0.025717833077705955,
+      "median_m": 0.014108792576714943,
+      "max_m": 0.10553472035972673
+    },
+    "vio": {
+      "alignment": "se3",
+      "scale": 1.0,
+      "matched": 1042,
+      "rmse_m": 0.008871254976812456,
+      "mean_m": 0.008163986097925839,
+      "median_m": 0.007819161119686405,
+      "max_m": 0.020650359846215428
+    }
+  },
+  "continuity": {
+    "vio": {
+      "samples": 1041,
+      "max_step_residual_m": 0.01734279991324093,
+      "p99_step_residual_m": 0.014807014406265568,
+      "near_events": []
+    },
+    "px4": {
+      "samples": 4050,
+      "max_step_residual_m": 0.010833164426193679,
+      "p99_step_residual_m": 0.0022511136019963797,
+      "near_events": []
+    }
+  },
+  "ev_input": {
+    "messages": 1041,
+    "send_age_s": {
+      "p50": 0.027999999999999997,
+      "p95": 0.032,
+      "p99": 0.032,
+      "n": 1041,
+      "mean": 0.02912584053794429,
+      "max": 0.052,
+      "min": 0.024
+    },
+    "older_than_max_age": 0,
+    "max_gap_s": 0.04000000000000625,
+    "rate_hz": 25.000000000000004
+  },
+  "fusion": {
+    "in_air_samples": 32,
+    "in_air_ev_pos_fraction": 1.0,
+    "in_air_outside_outages_samples": 32,
+    "in_air_outside_outages_ev_pos_fraction": 1.0,
+    "transitions": [
+      {
+        "ev_pos": false,
+        "ev_yaw": false,
+        "ev_hgt": false,
+        "ev_vel": false,
+        "t_s": 1.592
+      },
+      {
+        "ev_pos": false,
+        "ev_yaw": false,
+        "ev_hgt": true,
+        "ev_vel": false,
+        "t_s": 1.7320000000000002
+      },
+      {
+        "ev_pos": true,
+        "ev_yaw": true,
+        "ev_hgt": true,
+        "ev_vel": true,
+        "t_s": 1.9320000000000002
+      }
+    ]
+  },
+  "adapter_health": {
+    "last_measurement_age_s": "0.036000",
+    "tracking_state": "tracking",
+    "pose_revision": "0",
+    "reset_count": "0",
+    "quality": "1.000000",
+    "accepted": "1072",
+    "rejected": "0",
+    "jumps_absorbed": "0",
+    "message": "tracking"
+  },
+  "bridge_status": {
+    "timesync": "true",
+    "px4_estimated_offset_us": "0",
+    "last_accepted_age_s": "0.068000",
+    "reset_counter": "0",
+    "count_ok": "1066",
+    "message": "ok"
+  },
+  "gates": {
+    "axes": true,
+    "timing": true,
+    "accuracy": true,
+    "local_continuity": null,
+    "no_stale_sent": true,
+    "stale_rejected": null,
+    "ev_fused_in_flight": true,
+    "resets_absorbed": null,
+    "mission_completed": true
+  },
+  "passed": true,
+  "time_source": "sim",
+  "mission": {
+    "exit_code": 0,
+    "faults": "",
+    "side_m": 3.0,
+    "altitude_m": 2.5,
+    "log": "/home/gojian/Project/3D_SLAMer/data/sim/m3_nominal_simtime/mission.log"
+  }
+}

@@ -8,11 +8,14 @@
   <license>TBD</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>
-  <depend>urdf</depend>
-  <depend>xacro</depend>
-  <depend>robot_state_publisher</depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>python3-yaml</exec_depend>
+  <exec_depend>python3-jsonschema</exec_depend>
 
-  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>ament_cmake_pytest</test_depend>
 
   <export>
     <build_type>ament_cmake</build_type>

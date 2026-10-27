@@ -3,7 +3,7 @@
 <package format="3">
   <name>x650_camera</name>
   <version>0.0.0</version>
-  <description>Wrap vendor (ZED X / ZED SDK) acquisition, retain acquisition metadata, provide calibrated images and IMU.</description>
+  <description>Camera acquisition with acquisition metadata: USB webcam (V4L2) capture now; ZED X / ZED SDK wrapper when the driver is available.</description>
   <maintainer email="164676+GoJian@users.noreply.github.com">Jian Gong</maintainer>
   <license>TBD</license>
 
@@ -11,6 +11,10 @@
   <depend>rclcpp</depend>
   <depend>sensor_msgs</depend>
   <depend>diagnostic_msgs</depend>
+  <depend>rclcpp_components</depend>
+  <depend>x650_msgs</depend>
+  <depend>x650_common</depend>
+  <exec_depend>v4l-utils</exec_depend>
 
   <test_depend>ament_cmake_gtest</test_depend>
 

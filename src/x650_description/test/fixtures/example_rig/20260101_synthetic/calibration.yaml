@@ -1,0 +1,34 @@
+calibration_hash: "sha256:c9bf4adcb02fa703d6d07f4d079618c0431a294aa6bd681e5127d504aa74a794"
+# SYNTHETIC test fixture. Not a real calibration; values are illustrative only.
+calibration_id: 20260101_synthetic
+rig_id: example_rig
+hardware_revision: rev0
+date: "2026-01-01"
+tool: synthetic
+transform_convention: T_A_B maps B into A
+units: SI (m, s, rad)
+cameras:
+  - camera_id: cam0
+    resolution: [960, 600]
+    camera_model: pinhole
+    intrinsics: [500.0, 500.0, 480.0, 300.0]
+    distortion_model: radtan
+    distortion: [0.0, 0.0, 0.0, 0.0]
+    # optical frame (x right, y down, z forward) relative to an FLU IMU, 6 cm left of center
+    T_imu_cam: {translation: [0.0, 0.06, 0.0], rotation_xyzw: [-0.5, 0.5, -0.5, 0.5]}
+    time_offset_s: 0.0
+  - camera_id: cam1
+    resolution: [960, 600]
+    camera_model: pinhole
+    intrinsics: [500.0, 500.0, 480.0, 300.0]
+    distortion_model: radtan
+    distortion: [0.0, 0.0, 0.0, 0.0]
+    T_imu_cam: {translation: [0.0, -0.06, 0.0], rotation_xyzw: [-0.5, 0.5, -0.5, 0.5]}
+    time_offset_s: 0.0
+imu:
+  accelerometer_noise_density: 0.002
+  accelerometer_random_walk: 0.0003
+  gyroscope_noise_density: 0.00016
+  gyroscope_random_walk: 0.000022
+  rate_hz: 200.0
+T_base_imu: {translation: [0.15, 0.0, 0.05], rotation_xyzw: [0.0, 0.0, 0.0, 1.0]}

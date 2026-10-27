@@ -1,0 +1,20 @@
+# Topics recorded for a raw session (plan section 6). Raw inputs only; derived products are
+# reproduced by replay. Add /rig/cam2..3 for the second stereo unit (M8).
+topics:
+  - /rig/cam0/image_raw
+  - /rig/cam0/camera_info
+  - /rig/cam0/frame_metadata
+  - /rig/cam1/image_raw
+  - /rig/cam1/camera_info
+  - /rig/cam1/frame_metadata
+  - /rig/imu
+  - /vio/odometry
+  - /vio/health
+  - /tf
+  - /tf_static
+  - /diagnostics
+stereo_pairs:
+  - [/rig/cam0/image_raw, /rig/cam1/image_raw]
+imu_topic: /rig/imu
+# rosbag2 writer cache; size from measured throughput (plan section 10).
+max_cache_size_bytes: 1073741824

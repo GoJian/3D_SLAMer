@@ -1,17 +1,29 @@
 # M0 dependency lock for the onboard (Jetson) stack.
 # version: release tag, package version or full commit SHA. null = not yet pinned.
+# verified: true only after a smoke test on target hardware with this exact version.
 # M0 exit criterion: camera, IMU and bridge smoke tests pass on target hardware with these pins.
+# Captured with scripts/capture_env.sh on 2026-10-27 (host jatom1). See docs/decisions/0001.
 lock_version: 1
 target: jetson
 components:
-  jetpack:            { version: null, notes: "JetPack 6.x (Ubuntu 22.04) assumed" }
-  ros2:               { version: null, notes: "humble assumed (matches Ubuntu 22.04)" }
-  zed_sdk:            { version: null, source: "https://www.stereolabs.com/developers/release" }
-  zed_link_driver:    { version: null, notes: "must match carrier + JetPack" }
-  px4_firmware:       { version: null, source: "https://github.com/PX4/PX4-Autopilot" }
-  px4_msgs:           { version: null, source: "https://github.com/PX4/px4_msgs", notes: "branch must match PX4 release" }
-  micro_xrce_dds_agent: { version: null, source: "https://github.com/eProsima/Micro-XRCE-DDS-Agent" }
-  okvis2_x:           { version: null, source: "https://github.com/ethz-mrl/OKVIS2-X" }
+  l4t:                { version: "R39.2.0", verified: true, notes: "Seeed image mfi_recomputer-robo-orin-nx-16g-j401-gmsl-7.2.0-39.2.0-2026-08-19; kernel 6.8.12-1021-tegra" }
+  jetpack:            { version: "7.2-b187", verified: true }
+  os:                 { version: "Ubuntu 24.04.5 LTS", verified: true }
+  cuda:               { version: "13.2.75", verified: true, notes: "nvcc cuda_13.2.r13.2" }
+  ros2:               { version: "jazzy", verified: true, notes: "ros-jazzy-ros-base 0.11.0-1noble.20261006; project packages build and test" }
+  rosbag2_storage_mcap: { version: "0.26.11-1noble.20260911.095159", verified: true }
+  eigen:              { version: "3.4.0-4build0.1", verified: true }
+  gcc:                { version: "13.3.0", verified: true }
+  python:             { version: "3.12.3", verified: true, notes: "numpy 1.26.4, jsonschema 4.10.3, pyyaml 6.0.1 (apt)" }
+  zed_sdk:            { version: null, source: "https://www.stereolabs.com/developers/release", notes: "need 'ZED SDK for JetPack 7.2 (L4T 39.2)'; not installed" }
+  zed_x_driver:       { version: null, notes: "GMSL driver for the J401 carrier unconfirmed; Seeed documents stereolabs-zedx-j501-mini 1.4.3.7-L4T39.2.0 for J50 Mini only, or BSP >= 2026-09-24 (decision 0001)" }
+  px4_firmware:       { version: "v1.17.0", verified: false, source: "https://github.com/PX4/PX4-Autopilot", notes: "SITL (px4_sitl, gz_x500_vision) verified 2026-10-27, decision 0004; flight controller not chosen; installed by scripts/setup_px4_sitl.sh" }
+  px4_msgs:           { version: "86d8239e962f6939e05c3737784f60c02fa884db", verified: false, source: "https://github.com/PX4/px4_msgs", notes: "release/1.17 HEAD 2026-10-27, matches v1.17.0; SITL verified" }
+  micro_xrce_dds_agent: { version: "v2.4.3", verified: false, source: "https://github.com/eProsima/Micro-XRCE-DDS-Agent", notes: "commit 73622810d984; built against Jazzy fastdds; SITL verified" }
+  gazebo:             { version: "harmonic 8.15.0", verified: true, notes: "gz-harmonic from packages.osrfoundation.org (arm64); SITL only; headless server, no rendering (see gpu)" }
+  ros_gz_bridge:      { version: "ros-jazzy-ros-gz-bridge 1.0.24", verified: true, notes: "SITL ground truth and /clock" }
+  gpu:                { version: "nvidia-smi 595.78, CUDA 13.2, Orin sm_87 8 SMs", verified: true, notes: "nvgpu firmware read fails at boot (error -40, ACR bootstrap failed). Workaround 2026-10-27: stop nvargus-daemon, modprobe -r nvgpu && modprobe nvgpu, start nvargus-daemon; then CUDA and Gazebo headless rendering work. Intermittent: the 2026-10-27 12:19 reboot came up fine with no workaround. Automated by scripts/jetson/install_gpu_boot_check.sh (nvidia-gpu-boot-check.service)" }
+  okvis2_x:           { version: "38043e4afe56d9b32a98434cc74e723737dd2bce", verified: false, source: "https://github.com/ethz-mrl/OKVIS2-X", notes: "main HEAD on 2026-10-27; build on Jazzy/JetPack 7.2 not yet attempted" }
   cuvslam:            { version: null, source: "https://github.com/nvidia-isaac/cuVSLAM", notes: "alternative; benchmark only" }
   nvblox:             { version: null, source: "https://github.com/nvidia-isaac/nvblox" }
   kalibr:             { version: null, source: "https://github.com/ethz-asl/kalibr", notes: "calibration host only" }

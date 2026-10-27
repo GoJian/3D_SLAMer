@@ -5,29 +5,30 @@ Start M0–M2 without waiting for Gaussian work. Every experiment must be reprod
 
 ## First implementation sprint
 
-- [ ] 1. ROS 2 workspace with `x650_description`, `x650_recording`, `x650_camera`, `x650_estimator_adapter`, `x650_evaluation` (skeletons exist)
-- [ ] 2. Config schemas for hardware revision, calibration hash, clock policy, dependency versions (`config/schemas/`; fill instances)
+- [x] 1. ROS 2 workspace with `x650_description`, `x650_recording`, `x650_camera`, `x650_estimator_adapter`, `x650_evaluation` (builds and tests on Jazzy; `x650_camera` has a USB webcam (V4L2) node, ZED wrapper pending driver)
+- [ ] 2. Config schemas for hardware revision, calibration hash, clock policy, dependency versions (`config/schemas/`; fill instances) — schemas + hash tooling done; hardware/clock instances still have TBDs needing hardware
 - [ ] 3. Record one stationary sequence and one handheld six-axis closed-loop sequence
-- [ ] 4. Replay through the estimator; save trajectory, timing, initialization and reset diagnostics
-- [ ] 5. Transform/time conversion tests before connecting the PX4 bridge
-- [ ] 6. One machine-readable baseline report; freeze the recording as a regression fixture (`tests/fixtures/`)
+- [ ] 4. Replay through the estimator; save trajectory, timing, initialization and reset diagnostics — `x650_replay` pipeline works on synthetic sessions through the adapter; real estimator (OKVIS2-X) not wired
+- [x] 5. Transform/time conversion tests before connecting the PX4 bridge (`x650_common`, `x650_px4_bridge` gtests)
+- [ ] 6. One machine-readable baseline report; freeze the recording as a regression fixture (`tests/fixtures/`) — `x650_evaluate` report format ready; needs a real recording
 
 ## M0 — Dependency lock
 
 Work: record hardware SKUs and exact PX4, JetPack, ROS, SDK and estimator revisions.
 
-- [ ] `config/hardware/x650_rev0.yaml` filled
-- [ ] `config/dependencies.jetson.lock.yaml` pinned (use `scripts/capture_env.sh`)
-- [ ] `dependencies.repos` versions pinned to tags/commits
+- [ ] `config/hardware/x650_rev0.yaml` filled — companion filled; airframe, FC, camera serials TBD
+- [ ] `config/dependencies.jetson.lock.yaml` pinned (use `scripts/capture_env.sh`) — platform pinned (decision 0001); PX4 v1.17.0 / px4_msgs / XRCE agent / Gazebo pinned for SITL (decision 0004); ZED SDK/driver open; GPU not initializing on this image
+- [ ] `dependencies.repos` versions pinned to tags/commits — OKVIS2-X pinned (unbuilt); px4_msgs release/1.17 and Micro-XRCE-DDS-Agent v2.4.3 pinned
 - [ ] Exit: camera, IMU and bridge smoke tests pass independently on target hardware
 
 ## M1 — Record / replay
 
 Work: camera wrapper, timestamp audit, session manifest, calibration loader.
 
-- [ ] `x650_camera` publishes images, CameraInfo, IMU with acquisition timestamps
-- [ ] `x650_recording` writes MCAP + `session_manifest.json`
-- [ ] Timestamp audit tool in `x650_evaluation`
+- [x] Calibration loader + static TF (`x650_description.calibration`)
+- [ ] `x650_camera` publishes images, CameraInfo, IMU with acquisition timestamps — USB webcam node (`usb_camera_node`: V4L2 buffer stamps, sequence, exposure) written and unit-tested, not yet run on a device; no IMU or CameraInfo yet
+- [x] `x650_recording` writes MCAP + `session_manifest.json` (verified on synthetic sessions)
+- [x] Timestamp audit tool in `x650_evaluation`
 - [ ] Exit: repeatable replay; frame pairing and timing verified; sustained recording without unexplained loss
 
 ## M2 — VIO baseline
@@ -35,15 +36,16 @@ Work: camera wrapper, timestamp audit, session manifest, calibration loader.
 Work: estimator adapter, TF, quality and reset reporting.
 
 - [ ] Kalibr calibration in `calibration/rigs/`
-- [ ] `x650_estimator_adapter` publishes `/vio/odometry`, `/vio/health`, `map -> odom -> base_link`
+- [x] `x650_estimator_adapter` publishes `/vio/odometry`, `/vio/health`, `map -> odom -> base_link` (synthetic replay; decision 0003)
 - [ ] Exit: metric scale and axis checks pass; closed-loop handheld trajectories evaluated
 
 ## M3 — PX4 SITL
 
 Work: odometry bridge, simulated dropouts/resets/latency.
 
-- [ ] Choose transport (ROS 2 `VehicleOdometry` vs MAVLink `ODOMETRY`) after pinning PX4
-- [ ] Exit: correct axes and timing; stale-data behavior works; global correction does not jump local odometry
+- [x] Choose transport: ROS 2 `VehicleOdometry` over uXRCE-DDS, PX4 v1.17.0 (decision 0004)
+- [x] Odometry bridge node `x650_px4_bridge/px4_bridge_node`; SITL harness `x650_sim` (fake VIO with dropout/jump/reset/latency faults, offboard mission, automated flight test)
+- [x] Exit: correct axes and timing; stale-data behavior works; global correction does not jump local odometry — met in SITL with a fake VIO (`reports/2026-10-27_m3_sitl.md`); done ahead of M2 at the user's request, re-run with the real estimator once M2 is done, and on the flight controller once chosen
 
 ## M4 — Geometry
 

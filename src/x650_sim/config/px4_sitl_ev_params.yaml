@@ -1,0 +1,17 @@
+# PX4 v1.17.0 SITL parameters for external-vision-only navigation (no GNSS, no magnetometer).
+# Applied as PX4_PARAM_<name> environment variables (ROMFS init.d-posix/rcS) on every start, in a
+# fresh working directory, so no state carries over between runs.
+px4_params:
+  SIM_GZ_EN_ODOM: 0        # PX4 must NOT read gz odometry itself; it arrives through our bridge
+  EKF2_EV_CTRL: 15         # fuse EV horizontal pos (1) + vertical pos (2) + velocity (4) + yaw (8)
+  EKF2_HGT_REF: 3          # height reference = vision
+  EKF2_EV_DELAY: 0.0       # timestamp_sample already is acquisition time (decision 0004)
+  EKF2_EV_NOISE_MD: 0      # use the variances we send
+  EKF2_GPS_CTRL: 0         # no GNSS fusion
+  EKF2_MAG_TYPE: 5         # no magnetometer: EV frame is FRD with arbitrary heading (decision 0002)
+  SYS_HAS_GPS: 0
+  SYS_HAS_MAG: 0
+  COM_RC_IN_MODE: 4        # no RC in simulation
+  COM_RCL_EXCEPT: 4        # do not failsafe on RC loss while in offboard
+  NAV_DLL_ACT: 0           # no GCS required
+  COM_OF_LOSS_T: 1.0

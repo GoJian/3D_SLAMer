@@ -4,7 +4,7 @@
   <name>x650_geometry</name>
   <version>0.0.0</version>
   <description>Local geometric fusion (nvblox or comparable) and 3D distance/occupancy queries.</description>
-  <maintainer email="gojian@gmail.com">GoJian</maintainer>
+  <maintainer email="164676+GoJian@users.noreply.github.com">Jian Gong</maintainer>
   <license>TBD</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

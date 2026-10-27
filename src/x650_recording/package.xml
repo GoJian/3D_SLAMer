@@ -4,7 +4,7 @@
   <name>x650_recording</name>
   <version>0.0.0</version>
   <description>Capture raw inputs, calibration, configuration and diagnostics into a replayable session.</description>
-  <maintainer email="gojian@gmail.com">GoJian</maintainer>
+  <maintainer email="164676+GoJian@users.noreply.github.com">Jian Gong</maintainer>
   <license>TBD</license>
 
 

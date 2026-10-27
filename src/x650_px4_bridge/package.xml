@@ -4,7 +4,7 @@
   <name>x650_px4_bridge</name>
   <version>0.0.0</version>
   <description>Frame/time conversion and external-odometry transport to PX4 (ROS 2 `VehicleOdometry` or MAVLink `ODOMETRY`, chosen after pinning PX4).</description>
-  <maintainer email="gojian@gmail.com">GoJian</maintainer>
+  <maintainer email="164676+GoJian@users.noreply.github.com">Jian Gong</maintainer>
   <license>TBD</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

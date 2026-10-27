@@ -4,7 +4,7 @@
   <name>x650_bringup</name>
   <version>0.0.0</version>
   <description>Parameter files and launch composition.</description>
-  <maintainer email="gojian@gmail.com">GoJian</maintainer>
+  <maintainer email="164676+GoJian@users.noreply.github.com">Jian Gong</maintainer>
   <license>TBD</license>
 
   <buildtool_depend>ament_cmake</buildtool_depend>

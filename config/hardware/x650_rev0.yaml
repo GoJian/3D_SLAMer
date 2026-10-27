@@ -1,0 +1,29 @@
+# Fill in during M0. Bump hardware_revision on any remount, swap or impact repair.
+hardware_revision: rev0
+date: null
+airframe:
+  model: Holybro X650 Development Kit
+  kit_revision: TBD
+  battery: TBD            # 6S; record capacity and model
+  takeoff_mass_kg: null
+  center_of_gravity_note: TBD
+flight_controller:
+  model: TBD              # Pixhawk 6C / 6X (kit) or Cube Orange if explicitly selected
+  serial: TBD
+companion:
+  module: Jetson Orin NX 16GB
+  carrier: TBD
+  power_mode: TBD
+  storage: TBD            # NVMe; size from measured recording throughput
+cameras:
+  - camera_id: cam0       # stereo unit 0 (left/right handled by camera wrapper)
+    model: ZED X
+    serial: TBD
+    lens: TBD
+    capture_card: ZED Link (variant TBD)
+    mount_position: forward
+gnss:
+  model: kit GNSS
+  rtk: false
+power: TBD                # dedicated regulated perception supply
+notes: ""

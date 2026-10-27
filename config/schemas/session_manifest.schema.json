@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "session_manifest.schema.json",
+  "title": "Recording session manifest",
+  "type": "object",
+  "required": ["session_id", "start_time_utc", "hardware_revision", "calibration_hash", "clock_policy", "dependency_lock_hash", "bag"],
+  "properties": {
+    "session_id": { "type": "string" },
+    "start_time_utc": { "type": "string", "format": "date-time" },
+    "duration_s": { "type": "number" },
+    "hardware_revision": { "type": "string" },
+    "calibration_id": { "type": "string" },
+    "calibration_hash": { "type": "string" },
+    "clock_policy": { "type": "string", "description": "path or hash of clock policy used" },
+    "dependency_lock_hash": { "type": "string" },
+    "git_commit": { "type": "string" },
+    "bag": {
+      "type": "object",
+      "required": ["path", "storage"],
+      "properties": {
+        "path": { "type": "string" },
+        "storage": { "type": "string", "examples": ["mcap"] },
+        "topics": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "sequence_type": { "type": "string", "examples": ["stationary", "handheld_closed_loop", "flight"] },
+    "audit": {
+      "type": "object",
+      "description": "Timestamp audit results (M1)",
+      "properties": {
+        "frames_expected": { "type": "integer" },
+        "frames_recorded": { "type": "integer" },
+        "max_stereo_pair_offset_s": { "type": "number" },
+        "imu_gaps": { "type": "integer" }
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}

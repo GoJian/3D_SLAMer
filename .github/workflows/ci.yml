@@ -1,0 +1,35 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  config:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: pip install jsonschema pyyaml
+      - run: python scripts/validate_config.py
+
+  ros-build:
+    # Builds project packages only (no third-party, no ZED SDK, no CUDA).
+    runs-on: ubuntu-22.04
+    container: ros:humble
+    steps:
+      - uses: actions/checkout@v4
+      - name: rosdep
+        run: |
+          apt-get update
+          rosdep update
+          rosdep install --from-paths src --ignore-src -y --rosdistro humble
+      - name: build and test
+        shell: bash
+        run: |
+          source /opt/ros/humble/setup.bash
+          colcon build --event-handlers console_direct+
+          colcon test
+          colcon test-result --verbose

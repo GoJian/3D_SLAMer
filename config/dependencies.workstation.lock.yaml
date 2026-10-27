@@ -1,0 +1,10 @@
+# Post-flight workstation stack. Kept separate from flight software (plan section 15).
+lock_version: 1
+target: workstation
+components:
+  os:        { version: null }
+  cuda:      { version: null }
+  colmap:    { version: null, source: "https://github.com/colmap/colmap" }
+  openmvs:   { version: null, source: "https://github.com/cdcseacave/openMVS" }
+  python:    { version: null }
+  evo:       { version: null, source: "https://github.com/MichaelGrupp/evo", notes: "trajectory metrics (candidate)" }

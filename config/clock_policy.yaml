@@ -1,0 +1,15 @@
+# Plan section 5. Confirm against the ZED SDK / capture driver during M1.
+image_timestamp_reference: exposure_start   # TODO: verify what the SDK actually reports
+clock_domains:
+  - name: zed_camera
+    source: ZED SDK image/IMU timestamps
+    sync_method: TBD
+  - name: jetson_system
+    source: CLOCK_REALTIME on companion
+    sync_method: TBD (chrony/PTP)
+  - name: px4
+    source: PX4 boot time
+    sync_method: timesync via selected PX4 transport
+ros_time_mapping: TBD     # never replace acquisition time with callback arrival time
+sync_target_s: 0.0005
+preserve_original_time: true

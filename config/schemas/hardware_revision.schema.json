@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "hardware_revision.schema.json",
+  "title": "Hardware revision",
+  "description": "Physical configuration of one X650 build. Bump revision on any remount, swap or impact repair.",
+  "type": "object",
+  "required": ["hardware_revision", "airframe", "flight_controller", "companion", "cameras"],
+  "properties": {
+    "hardware_revision": { "type": "string" },
+    "date": { "type": ["string", "null"], "format": "date" },
+    "airframe": {
+      "type": "object",
+      "required": ["model"],
+      "properties": {
+        "model": { "type": "string" },
+        "kit_revision": { "type": "string" },
+        "battery": { "type": "string" },
+        "takeoff_mass_kg": { "type": ["number", "null"] },
+        "center_of_gravity_note": { "type": "string" }
+      }
+    },
+    "flight_controller": {
+      "type": "object",
+      "required": ["model"],
+      "properties": { "model": { "type": "string" }, "serial": { "type": "string" } }
+    },
+    "companion": {
+      "type": "object",
+      "required": ["module"],
+      "properties": {
+        "module": { "type": "string" },
+        "carrier": { "type": "string" },
+        "power_mode": { "type": "string" },
+        "storage": { "type": "string" }
+      }
+    },
+    "cameras": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["camera_id", "model", "serial"],
+        "properties": {
+          "camera_id": { "type": "string" },
+          "model": { "type": "string" },
+          "serial": { "type": "string" },
+          "lens": { "type": "string" },
+          "capture_card": { "type": "string" },
+          "mount_position": { "type": "string" }
+        }
+      }
+    },
+    "gnss": {
+      "type": "object",
+      "properties": { "model": { "type": "string" }, "rtk": { "type": "boolean" } }
+    },
+    "power": { "type": "string" },
+    "notes": { "type": "string" }
+  }
+}

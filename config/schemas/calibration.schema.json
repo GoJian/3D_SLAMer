@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "calibration.schema.json",
+  "title": "Rig calibration index",
+  "description": "Top-level index for one versioned calibration (calibration/<rig_id>/<calibration_id>/calibration.yaml). Transform convention: T_A_B maps coordinates from frame B into frame A. Units: meters, seconds, radians.",
+  "type": "object",
+  "required": ["calibration_id", "rig_id", "hardware_revision", "transform_convention", "units", "cameras", "imu", "T_base_imu"],
+  "properties": {
+    "calibration_id": { "type": "string" },
+    "calibration_hash": { "type": "string", "description": "sha256 of the calibration files, computed by tooling" },
+    "rig_id": { "type": "string" },
+    "hardware_revision": { "type": "string" },
+    "date": { "type": ["string", "null"], "format": "date" },
+    "tool": { "type": "string", "description": "e.g. kalibr <commit>, vendor factory" },
+    "transform_convention": { "const": "T_A_B maps B into A" },
+    "units": { "const": "SI (m, s, rad)" },
+    "cameras": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["camera_id", "resolution", "camera_model", "intrinsics", "distortion_model", "distortion", "T_imu_cam", "time_offset_s"],
+        "properties": {
+          "camera_id": { "type": "string" },
+          "resolution": { "type": "array", "items": { "type": "integer" }, "minItems": 2, "maxItems": 2 },
+          "crop": { "type": "string" },
+          "camera_model": { "type": "string", "examples": ["pinhole"] },
+          "intrinsics": { "type": "array", "items": { "type": "number" }, "description": "fx, fy, cx, cy" },
+          "distortion_model": { "type": "string", "examples": ["radtan", "equidistant"] },
+          "distortion": { "type": "array", "items": { "type": "number" } },
+          "T_imu_cam": { "$ref": "#/$defs/transform" },
+          "time_offset_s": { "type": "number", "description": "t_imu = t_cam + time_offset_s" }
+        }
+      }
+    },
+    "imu": {
+      "type": "object",
+      "required": ["accelerometer_noise_density", "accelerometer_random_walk", "gyroscope_noise_density", "gyroscope_random_walk", "rate_hz"],
+      "properties": {
+        "accelerometer_noise_density": { "type": "number" },
+        "accelerometer_random_walk": { "type": "number" },
+        "gyroscope_noise_density": { "type": "number" },
+        "gyroscope_random_walk": { "type": "number" },
+        "rate_hz": { "type": "number" },
+        "accel_saturation_mps2": { "type": "number" },
+        "gyro_saturation_radps": { "type": "number" }
+      }
+    },
+    "T_base_imu": { "$ref": "#/$defs/transform" },
+    "gnss_lever_arm_m": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "recording": { "type": "string" },
+        "report": { "type": "string" },
+        "temperature_c": { "type": "number" }
+      }
+    }
+  },
+  "$defs": {
+    "transform": {
+      "type": "object",
+      "required": ["translation", "rotation_xyzw"],
+      "properties": {
+        "translation": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+        "rotation_xyzw": { "type": "array", "items": { "type": "number" }, "minItems": 4, "maxItems": 4 }
+      }
+    }
+  }
+}

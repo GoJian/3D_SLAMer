@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "clock_policy.schema.json",
+  "title": "Clock policy",
+  "description": "How sensor acquisition time maps into ROS time (plan section 5).",
+  "type": "object",
+  "required": ["image_timestamp_reference", "clock_domains", "ros_time_mapping", "sync_target_s"],
+  "properties": {
+    "image_timestamp_reference": { "enum": ["exposure_start", "exposure_midpoint", "exposure_end"] },
+    "clock_domains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "source"],
+        "properties": {
+          "name": { "type": "string" },
+          "source": { "type": "string" },
+          "sync_method": { "type": "string" }
+        }
+      }
+    },
+    "ros_time_mapping": { "type": "string", "description": "Method used to map sensor clock into ROS time. Never callback arrival time." },
+    "sync_target_s": { "type": "number", "description": "Inter-camera sync target, initial 0.0005" },
+    "preserve_original_time": { "const": true }
+  }
+}

@@ -1,0 +1,22 @@
+# Third-party ROS 2 sources, imported into src/third_party/ (git-ignored):
+#   vcs import src/third_party < dependencies.repos
+# Every "version" must be pinned to a tag or commit during M0 and mirrored in
+# config/dependencies.jetson.lock.yaml. Branch names below are placeholders.
+repositories:
+  px4_msgs:
+    type: git
+    url: https://github.com/PX4/px4_msgs.git
+    version: main          # TODO M0: match pinned PX4 release branch
+  okvis2_x:
+    type: git
+    url: https://github.com/ethz-mrl/OKVIS2-X.git
+    version: main          # TODO M0: pin commit
+# Enable when needed (M4 / benchmarking):
+#  isaac_ros_nvblox:
+#    type: git
+#    url: https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox.git
+#    version: TODO
+#  zed-ros2-wrapper:
+#    type: git
+#    url: https://github.com/stereolabs/zed-ros2-wrapper.git
+#    version: TODO

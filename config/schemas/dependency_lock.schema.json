@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dependency_lock.schema.json",
+  "title": "Dependency lock (M0)",
+  "type": "object",
+  "required": ["lock_version", "target", "components"],
+  "properties": {
+    "lock_version": { "type": "integer" },
+    "target": { "enum": ["jetson", "workstation"] },
+    "components": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["version"],
+        "properties": {
+          "version": { "type": ["string", "null"], "description": "release tag, package version, or full commit SHA; null = not yet pinned" },
+          "source": { "type": "string" },
+          "license": { "type": "string" },
+          "verified": { "type": "boolean" },
+          "notes": { "type": "string" }
+        }
+      }
+    }
+  }
+}

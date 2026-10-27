@@ -1,0 +1,35 @@
+# colcon
+build/
+install/
+log/
+src/third_party/
+
+# data and outputs
+data/*
+!data/README.md
+*.bag
+*.db3
+*.mcap
+*.svo
+*.svo2
+*.ply
+*.glb
+*.gltf
+*.obj
+*.mtl
+*.splat
+*.ckpt
+*.pth
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv*/
+.pytest_cache/
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+*.swp

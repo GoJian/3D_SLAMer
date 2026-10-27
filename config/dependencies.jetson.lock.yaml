@@ -1,0 +1,17 @@
+# M0 dependency lock for the onboard (Jetson) stack.
+# version: release tag, package version or full commit SHA. null = not yet pinned.
+# M0 exit criterion: camera, IMU and bridge smoke tests pass on target hardware with these pins.
+lock_version: 1
+target: jetson
+components:
+  jetpack:            { version: null, notes: "JetPack 6.x (Ubuntu 22.04) assumed" }
+  ros2:               { version: null, notes: "humble assumed (matches Ubuntu 22.04)" }
+  zed_sdk:            { version: null, source: "https://www.stereolabs.com/developers/release" }
+  zed_link_driver:    { version: null, notes: "must match carrier + JetPack" }
+  px4_firmware:       { version: null, source: "https://github.com/PX4/PX4-Autopilot" }
+  px4_msgs:           { version: null, source: "https://github.com/PX4/px4_msgs", notes: "branch must match PX4 release" }
+  micro_xrce_dds_agent: { version: null, source: "https://github.com/eProsima/Micro-XRCE-DDS-Agent" }
+  okvis2_x:           { version: null, source: "https://github.com/ethz-mrl/OKVIS2-X" }
+  cuvslam:            { version: null, source: "https://github.com/nvidia-isaac/cuVSLAM", notes: "alternative; benchmark only" }
+  nvblox:             { version: null, source: "https://github.com/nvidia-isaac/nvblox" }
+  kalibr:             { version: null, source: "https://github.com/ethz-asl/kalibr", notes: "calibration host only" }

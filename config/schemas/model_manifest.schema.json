@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "model_manifest.schema.json",
+  "title": "Delivered model manifest (model/manifest.json, plan section 15)",
+  "type": "object",
+  "required": ["model_id", "units", "axes", "frame", "versions", "hashes", "quality_summary"],
+  "properties": {
+    "model_id": { "type": "string" },
+    "source_sessions": { "type": "array", "items": { "type": "string" } },
+    "units": { "const": "meters" },
+    "axes": { "type": "string", "description": "e.g. x east / y north / z up, or local ENU" },
+    "frame": { "type": "string" },
+    "georeference": {
+      "type": ["object", "null"],
+      "properties": {
+        "T_project_model": { "$ref": "calibration.schema.json#/$defs/transform" },
+        "horizontal_datum": { "type": "string" },
+        "vertical_datum": { "type": "string" }
+      }
+    },
+    "versions": { "type": "object", "description": "tool versions (COLMAP, OpenMVS, exporter, git commit)" },
+    "hashes": {
+      "type": "object",
+      "properties": {
+        "reference_mesh": { "type": "string" },
+        "model_glb": { "type": "string" },
+        "point_cloud": { "type": "string" }
+      }
+    },
+    "quality_summary": {
+      "type": "object",
+      "properties": {
+        "registration_method": { "type": "string" },
+        "checkpoint_rmse_m": { "type": ["number", "null"] },
+        "length_error_abs_m": { "type": ["number", "null"] },
+        "length_error_rel": { "type": ["number", "null"] },
+        "surface_error_p95_m": { "type": ["number", "null"] },
+        "completeness": { "type": ["number", "null"] },
+        "scale_error": { "type": ["number", "null"] },
+        "lod_max_deviation_m": { "type": ["number", "null"] },
+        "accepted": { "type": "boolean" }
+      }
+    }
+  }
+}

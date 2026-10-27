@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "keyframe_bundle.schema.json",
+  "title": "Keyframe bundle (plan section 9)",
+  "type": "object",
+  "required": ["session_id", "rig_id", "keyframe_id", "timestamp", "clock_domain", "calibration_hash", "pose_revision", "T_odom_base", "T_map_base", "views"],
+  "properties": {
+    "session_id": { "type": "string" },
+    "rig_id": { "type": "string" },
+    "keyframe_id": { "type": "integer", "minimum": 0 },
+    "timestamp": { "type": "integer", "description": "acquisition time, ns, in clock_domain" },
+    "clock_domain": { "type": "string" },
+    "calibration_hash": { "type": "string" },
+    "pose_revision": { "type": "integer", "minimum": 0 },
+    "T_odom_base": { "$ref": "calibration.schema.json#/$defs/transform" },
+    "T_map_base": { "$ref": "calibration.schema.json#/$defs/transform" },
+    "views": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["camera_id", "image_path", "camera_model", "T_base_camera"],
+        "properties": {
+          "camera_id": { "type": "string" },
+          "image_path": { "type": "string" },
+          "camera_model": { "type": "string" },
+          "T_base_camera": { "$ref": "calibration.schema.json#/$defs/transform" },
+          "exposure_metadata": { "type": "object" },
+          "optional_depth_path": { "type": ["string", "null"] },
+          "optional_confidence_path": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "optional_sparse_landmarks": { "type": ["string", "null"] },
+    "estimator_quality": { "type": ["number", "null"] }
+  }
+}

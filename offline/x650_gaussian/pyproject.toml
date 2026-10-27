@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "x650-gaussian"
+version = "0.0.0"
+description = "Offline Gaussian comparison first, then a bounded asynchronous submap worker."
+requires-python = ">=3.10"
+dependencies = []  # pin during M0 / M5
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

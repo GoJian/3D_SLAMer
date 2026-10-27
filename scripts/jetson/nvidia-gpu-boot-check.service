@@ -1,0 +1,17 @@
+# Reload nvgpu at boot if the GPU failed to initialize (JetPack 7.2 workaround).
+# See scripts/jetson/gpu-boot-check.sh and the gpu entry in config/dependencies.jetson.lock.yaml.
+[Unit]
+Description=Check NVIDIA GPU and reload nvgpu if it failed at boot
+After=nvidia-cdi-refresh.service nvargus-daemon.service nv.service systemd-modules-load.service
+# Run before the desktop opens the GPU; an open GPU blocks the reload.
+Before=display-manager.service gdm.service
+ConditionPathExists=/usr/bin/nvidia-smi
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/nvidia-gpu-boot-check
+TimeoutStartSec=600
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
